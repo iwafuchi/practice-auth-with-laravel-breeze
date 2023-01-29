@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoutingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,4 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::controller(RoutingController::class)->prefix('routing')->group(function () {
+    Route::get('/', 'index')->name('routing.index');
+    Route::get('index', 'index')->name('routing.index');
+    Route::get('create', 'create')->name('routing.create');
+    Route::post('create', 'createConfirm')->name('routing.createConfirm');
+});
+
+require __DIR__ . '/auth.php';
